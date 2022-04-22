@@ -153,12 +153,12 @@ def get_contact_infos(
 
 def create_contact(alias: Alias, contact_address: str) -> Optional[Contact]:
     if not current_user.is_premium():
-        flash(f"Please upgrade to premium to create reverse-alias")
+        flash(f"Please upgrade to premium to create reverse-alias", "error")
         return None
 
     try:
         contact_name, contact_email = parse_full_address(contact_address)
-    except Exception:
+    except ValueError:
         flash(f"{contact_address} is invalid", "error")
         return None
 
